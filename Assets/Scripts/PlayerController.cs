@@ -11,12 +11,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Jump height of player")]
     public float jumpHeight = 2f;
     public Rigidbody rb;
-    private Vector3 moveDirection = Vector3.zero;
+ 
     
     // Start is called before the first frame update
 
     private CharacterController characterController;
     private PlayerController playerController;
+
     void Start()
     {
         SetupCharacterContoller();
@@ -41,9 +42,12 @@ public class PlayerController : MonoBehaviour
         
         float xMove = Input.GetAxisRaw("Horizontal");
         float yMove = Input.GetAxisRaw("Vertical");
-        rb.AddForce(new Vector3(xMove, 0, yMove)* playerSpeed * Time.deltaTime);  
+        //rb.AddForce(new Vector3(xMove, 0, yMove)* playerSpeed * Time.deltaTime);
+        Vector3 movementDirection = new Vector3(xMove, 0, yMove);
+        transform.Translate(movementDirection * playerSpeed * Time.deltaTime, Space.World);
 
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -63,10 +67,6 @@ public class PlayerController : MonoBehaviour
 
     //}
 
-    void SetupInputController()
-    {
-        
-    }
 
 
 }
