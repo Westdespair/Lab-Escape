@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         right = right.normalized;
 
         Vector3 forwardRelativeVerticalInput = playerVerticalInput * forward * playerSpeed;
-        Vector3 rightRelativeHorizontalInput = playerHorizontalInput * right;
+        Vector3 rightRelativeHorizontalInput = playerHorizontalInput * right * jumpHeight;
 
         Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
 
