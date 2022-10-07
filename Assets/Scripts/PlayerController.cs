@@ -5,20 +5,30 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public CapsuleCollider playerCollider;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
     [Tooltip("Movement speed of player in m/s")]
-    public float playerSpeed;
+    public float playerSpeed = 100f;
     private bool permissionToJump = true;
     [Tooltip("Jump height of player")]
-    public float jumpHeight;
+    public float jumpHeight = 2f;
     public Rigidbody rb;
     private Vector3 moveDirection = Vector3.zero;
-    private bool isJumpPressed = false;
+    
     // Start is called before the first frame update
+
+    private CharacterController characterController;
+    private PlayerController playerController;
     void Start()
     {
+        SetupCharacterContoller();
+    }
 
+    void SetupCharacterContoller()
+    {
+        characterController = GetComponent<CharacterController>();
+        if(characterController == null)
+        {
+            Debug.LogError("The player character does not have a character controller on the same game object");
+        }
     }
 
     // Update is called once per frame
@@ -28,12 +38,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && permissionToJump) {
             rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
         }
-
-
-
-        
-        
-
         
         float xMove = Input.GetAxisRaw("Horizontal");
         float yMove = Input.GetAxisRaw("Vertical");
@@ -58,6 +62,11 @@ public class PlayerController : MonoBehaviour
     //, playerCollider.radius, LayerMask.NameToLayer("Player"));
 
     //}
+
+    void SetupInputController()
+    {
+        
+    }
 
 
 }
