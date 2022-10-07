@@ -6,55 +6,80 @@ public class PlayerController : MonoBehaviour
 {
     public CapsuleCollider playerCollider;
     [Tooltip("Movement speed of player in m/s")]
-    public float playerSpeed = 100f;
+    [SerializeField] public float playerSpeed = 10.0f;
     private bool permissionToJump = true;
     [Tooltip("Jump height of player")]
-    public float jumpHeight = 2f;
+    public float jumpHeight = 10.0f;
+    public float rotationSpeed;
     public Rigidbody rb;
  
     
     // Start is called before the first frame update
 
     private CharacterController characterController;
-    private PlayerController playerController;
 
     void Start()
     {
-        SetupCharacterContoller();
+       
     }
 
-    void SetupCharacterContoller()
-    {
-        characterController = GetComponent<CharacterController>();
-        if(characterController == null)
-        {
-            Debug.LogError("The player character does not have a character controller on the same game object");
-        }
-    }
+
 
     // Update is called once per frame
     void Update()
+
+
     {
-   
+
         if (Input.GetButtonDown("Jump") && permissionToJump) {
             rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
         }
-        
-        float xMove = Input.GetAxisRaw("Horizontal");
-        float yMove = Input.GetAxisRaw("Vertical");
-        //rb.AddForce(new Vector3(xMove, 0, yMove)* playerSpeed * Time.deltaTime);
-        Vector3 movementDirection = new Vector3(xMove, 0, yMove);
-        transform.Translate(movementDirection * playerSpeed * Time.deltaTime, Space.World);
 
+        MoveplayerRelativeToCamera();
+
+
+
+        //float xMove = Input.GetAxis("Horizontal");
+        //float yMove = Input.GetAxis("Vertical");
+        //rb.AddForce(new Vector3(xMove, 0, yMove)* playerSpeed * Time.deltaTime);
+        //Vector3 movementDirection = new Vector3(xMove, 0, yMove);
+        //transform.Translate(movementDirection * playerSpeed * Time.deltaTime, Space.World);
+
+        //if(movementDirection != Vector3.zero)
+        //{
+           // Quaternion toRotation = Quaternion.LookRotation(movementDirection);
+           // transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        //}
     }
 
+    void MoveplayerRelativeToCamera()
+    {
+    
 
-    private void OnCollisionEnter(Collision collision)
+        float playerVerticalInput = Input.GetAxis("Vertical");
+        float playerHorizontalInput = Input.GetAxis("Horizontal");
+
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 right = Camera.main.transform.right;
+        forward.y = 0;
+        right.y = 0;
+        forward = forward.normalized;
+        right = right.normalized;
+
+        Vector3 forwardRelativeVerticalInput = playerVerticalInput * forward * playerSpeed;
+        Vector3 rightRelativeHorizontalInput = playerHorizontalInput * right;
+
+        Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
+
+        this.transform.Translate(cameraRelativeMovement, Space.World);
+    }
+
+    void OnCollisionEnter(Collision collision)
     {
         permissionToJump = true;
     }
 
-    private void OnCollisionExit(Collision collision)
+    void OnCollisionExit(Collision collision)
     {
         permissionToJump = false;
     }
