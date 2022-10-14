@@ -11,7 +11,7 @@ public class LaunchProjectile : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1")) {
             GameObject launchedObject = Instantiate(projectile, transform.position, transform.rotation);
-            launchedObject.GetComponent<Rigidbody>().AddRelativeForce(new Vector3 (0, launchSpeed, 0));
+            launchedObject.GetComponent<Rigidbody>().AddRelativeForce(new Vector3 (0,0 , -launchSpeed));
         }
         
     }
