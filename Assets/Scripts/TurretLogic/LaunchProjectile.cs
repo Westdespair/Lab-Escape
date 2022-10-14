@@ -5,7 +5,7 @@ using UnityEngine;
 public class LaunchProjectile : MonoBehaviour
 {
     public GameObject projectile;
-    [SerializeField] public float launchSpeed = 750f;
+    [SerializeField] private float launchSpeed = 10000f;
     // Update is called once per frame
     void Update()
     {
