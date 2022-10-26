@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerShooter : MonoBehaviour
 {
     public GameObject Bullet;
-    public Camera playerCamera;
+    public GameObject shooterCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +15,8 @@ public class PlayerShooter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) {
             GameObject bullet = Instantiate (Bullet);
-            Bullet.transform.position = playerCamera.transform.position + playerCamera.transform.forward;
-            Bullet.transform.forward = playerCamera.transform.forward;
+            Bullet.transform.position = shooterCamera.transform.position + shooterCamera.transform.forward;
+            Bullet.transform.forward = shooterCamera.transform.forward;
         }   
     }
 }

@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Jump height of player")]
     public float jumpHeight = 10.0f;
     public float rotationSpeed;
+    public float dashForce;
     public Rigidbody rb;
  
     
@@ -36,6 +37,12 @@ public class PlayerController : MonoBehaviour
         }
 
         MoveplayerRelativeToCamera();
+
+        if (Input.GetButtonDown("Jump")){
+
+            rb.AddForce(new Vector3(dashForce, 0, 0), ForceMode.Impulse);
+            Debug.Log("Dashing");
+        }
 
 
 
@@ -71,7 +78,9 @@ public class PlayerController : MonoBehaviour
 
         Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
 
-        this.transform.Translate(cameraRelativeMovement, Space.World);
+        //this.transform.Translate(cameraRelativeMovement, Space.World);
+        rb.AddForce(cameraRelativeMovement, ForceMode.VelocityChange);
+    
     }
 
     void OnCollisionEnter(Collision collision)
