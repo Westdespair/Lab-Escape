@@ -1,4 +1,4 @@
-using System.Collections;
+dusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         //this.transform.Translate(cameraRelativeMovement, Space.World);
         rb.AddForce(cameraRelativeMovement, ForceMode.VelocityChange);
-    
+ 
     }
 
     void OnCollisionEnter(Collision collision)
