@@ -15,4 +15,4 @@ EditorBuildSettings:
     path: Assets/Scenes/BlockOutV2.unity
     guid: e6fefefd235cf4f78954e890f4c66380
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: d996292272c9e8c4ba4fce8910099b5d, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 3ee02839303457c40908b89f946a008a, type: 2}

@@ -13,7 +13,7 @@ public class PauseMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(GameIsPaused)
             {
@@ -43,12 +43,14 @@ public class PauseMenuController : MonoBehaviour
 
     public void LoadMenu()
     {
+        SceneManager.LoadScene(0);
         Debug.Log("Loading Menu..");
 
     }
 
     public void QuitGame()
     {
+        Application.Quit();
         Debug.Log("Quitting game..");
 
     }
