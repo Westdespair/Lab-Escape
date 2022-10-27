@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PrototypeLevel.unity
     guid: 918ddcd6f4359439397e21794006e5a6
   - enabled: 1
-    path: Assets/Scenes/BlockOutV2.unity
+    path: Assets/Scenes/BlockOutPrototytpe/BlockOutV2.unity
     guid: e6fefefd235cf4f78954e890f4c66380
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 3ee02839303457c40908b89f946a008a, type: 2}
