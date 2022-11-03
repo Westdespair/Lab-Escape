@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     private InputAction jump;
     private InputAction dash;
     private PlayerInput playerInput;
-    private bool permissionToJump = true;    
+    private bool permissionToJump = true;
+    public GameObject weapon;
 
     private void Awake()
     {

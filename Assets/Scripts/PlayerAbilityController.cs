@@ -8,7 +8,7 @@ public class PlayerAbilityController : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction primaryAttack;
     private InputAction secondaryAttack;
-    private GameObject weaponSlot;
+    public GameObject weaponSlot;
     public GameObject projectile;
 
     private void Awake()
@@ -42,7 +42,8 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void OnPrimaryAttack(InputAction.CallbackContext context)
     {
-        Instantiate<GameObject>(projectile,transform.position,transform.rotation);
+        // Instantiate<GameObject>(projectile,transform.position,transform.rotation);
+        weaponSlot.GetComponent<Weapon>().FireWeapon();
     }
 
     private void OnSecondaryAttack(InputAction.CallbackContext context)
