@@ -8,8 +8,10 @@ public class PlayerAbilityController : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction primaryAttack;
     private InputAction secondaryAttack;
+    private bool fireIsPressed;
     public GameObject weaponSlot;
     public GameObject projectile;
+    private Weapon weaponScript;
 
     private void Awake()
     {
@@ -21,6 +23,8 @@ public class PlayerAbilityController : MonoBehaviour
         primaryAttack = playerInput.PlayerController.PrimaryAttack;
         primaryAttack.Enable();
         primaryAttack.performed += OnPrimaryAttack;
+        primaryAttack.performed += _ => fireIsPressed = true;
+        primaryAttack.canceled += _ => fireIsPressed = false;
 
         secondaryAttack = playerInput.PlayerController.SecondaryAttack;
         secondaryAttack.Enable();
@@ -37,12 +41,19 @@ public class PlayerAbilityController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (weaponSlot != null)
+        {
+            if(fireIsPressed && weaponSlot.GetComponent<Weapon>().mode == Weapon.FireMode.Auto)
+            {
+                weaponSlot.GetComponent<Weapon>().FireWeapon();
+            }
+        }
     }
 
     private void OnPrimaryAttack(InputAction.CallbackContext context)
     {
         // Instantiate<GameObject>(projectile,transform.position,transform.rotation);
+        Debug.Log("Primary attack input has been pressed");
         weaponSlot.GetComponent<Weapon>().FireWeapon();
     }
 
