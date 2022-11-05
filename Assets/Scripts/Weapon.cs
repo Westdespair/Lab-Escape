@@ -7,21 +7,36 @@ using UnityEngine;
  */
 public class Weapon : MonoBehaviour
 {
+    [Tooltip("Model of the weapon.")]
     public GameObject weaponModel;
-    public bool infiniteForEnemies;
+    [Tooltip("Amount of shots a weapon can fire before being empty.")]
     public int capacity;
-    public float accuracyPercentage = 100;
+    [Tooltip("Max angle a bullet is allowed to deviate from its forward path in degrees.")]
+    public float bulletDeviation = 0;
+    [Tooltip("Amount of bullets a weapon can fire per second.")]
     public float shotsPerSecond;
-    public int damage;
+    [Tooltip("Projectile that will be fired from the muzzle.")]
     public GameObject projectile;
-    public bool permissionToFire = true;
+    [Tooltip("Effect that will be played from the muzzle.")]
     public GameObject fireEffect;
-    public GameObject fireLocation;
+    [Tooltip("Position effects and projectiles will be spawned from. Effectively a muzzle.")]
+    public GameObject firePosition;
+    [Tooltip("Position bullet casings will launch from after firing.")]
+    public GameObject casingPosition;
+    [Tooltip("Object that will be spawned from casingposition.")]
+    public GameObject casing;
+    [Tooltip("Final relative position of the recoil animation.")]
     public Vector3 recoilPosition;
+    [Tooltip("Final relative rotation of the recoil animation.")]
     public Vector3 recoilRotation;
+    [Tooltip("The time the recoil animation takes to finish.")]
     public float recoilTime;
-    public bool canBePickedUp;
+    [Tooltip("How inputs will interact with the weapon.")]
     public FireMode mode;
+
+    private bool permissionToFire = true;
+    private Vector3 basePosition;
+    private Vector3 baseRotation;
 
 
 
@@ -38,6 +53,8 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         permissionToFire = true;
+        basePosition = weaponModel.transform.localPosition;
+        baseRotation = weaponModel.transform.localRotation.eulerAngles;
     }
 
     // Update is called once per frame
@@ -46,16 +63,19 @@ public class Weapon : MonoBehaviour
     }
 
     /**
-     * Attempts to fire the weapon
+     * Attempts to fire the weapon.
+     * TODO: Add functionality for the accuracy modifier.
      */
     public void FireWeapon()
     {
         float timeBetweenShots = 1 / shotsPerSecond;
-        if (permissionToFire)
+        if (permissionToFire && capacity > 0)
         {
             Debug.Log("Fire!");
-            Instantiate(fireEffect, fireLocation.transform);
-            Instantiate(projectile,fireLocation.transform);
+            Instantiate(fireEffect, firePosition.transform);
+            Instantiate(projectile,firePosition.transform);
+            Instantiate(casing, casingPosition.transform);
+            capacity -= 1;
             StartCoroutine(PlayRecoilAnimation());
             StartCoroutine(RevokePermissionToFire(timeBetweenShots));
         }
@@ -76,12 +96,11 @@ public class Weapon : MonoBehaviour
      * TODO: Currently broken, rotates around the player, and ends with new rotation instead of base rotation.
      */
     private IEnumerator PlayRecoilAnimation() {
-        Vector3 basePosition = weaponModel.transform.localPosition;
         Vector3 targetPosition = recoilPosition;
-        Vector3 baseRotation = weaponModel.transform.rotation.eulerAngles;
         Vector3 targetRotation = recoilRotation;
         float lerpValue = 0;
 
+        //Move weapon to assigned position and rotation in recoiltime seconds.
         while(lerpValue < 1)
         {
             weaponModel.transform.localPosition = Vector3.LerpUnclamped(basePosition, targetPosition, lerpValue);
@@ -101,15 +120,5 @@ public class Weapon : MonoBehaviour
         permissionToFire = false;
         yield return new WaitForSeconds(seconds);
         permissionToFire = true;
-    }
-
-
-    private void OnCollisionEnter(Collision other)
-    {
-
-    }
-
-    private void SetState(FireMode fireMode) {
-        mode = fireMode;
     }
 }
