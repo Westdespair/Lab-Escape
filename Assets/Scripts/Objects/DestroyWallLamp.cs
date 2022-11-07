@@ -12,14 +12,9 @@ public class DestroyWallLamp : MonoBehaviour
     public bool canDie;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (currentHealth < 1)
         {

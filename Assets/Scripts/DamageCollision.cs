@@ -6,7 +6,7 @@ public class DamageCollision : MonoBehaviour
 {
     private Collider damageCollider;
     private Damage damage;
-    public int damageAmount;
+    public int damageAmount = 1;
     // Start is called before the first frame update
     void Start()
     {
