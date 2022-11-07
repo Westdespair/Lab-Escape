@@ -25,11 +25,5 @@ public class Damage : MonoBehaviour
         {
             target.GetComponent<Health>().TakeDamage(damage);
         };
-        if (target.GetComponent("Health") != null)
-        {
-            target.GetComponent<DestroyWallLamp>().TakeDamage(damage);
-        };
-
-
     }
 }
