@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         permissionToFire = true;
-        basePosition = weaponModel.transform.localPosition;
+        //basePosition = weaponModel.transform.localPosition;
         baseRotation = weaponModel.transform.localRotation.eulerAngles;
     }
 
