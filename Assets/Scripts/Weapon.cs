@@ -33,10 +33,11 @@ public class Weapon : MonoBehaviour
     public float recoilTime;
     [Tooltip("How inputs will interact with the weapon.")]
     public FireMode mode;
+    [Tooltip("The initial position of the weapon.")]
+    public Vector3 basePosition = new Vector3(1.03f, 0.09f, 0.86f);
 
     private bool permissionToFire = true;
-    private Vector3 basePosition;
-    private Vector3 baseRotation;
+    public Vector3 baseRotation;
 
 
 
