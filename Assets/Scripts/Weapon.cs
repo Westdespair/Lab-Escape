@@ -33,10 +33,12 @@ public class Weapon : MonoBehaviour
     public float recoilTime;
     [Tooltip("How inputs will interact with the weapon.")]
     public FireMode mode;
+    [Tooltip("The initial position of the weapon.")]
+    public Vector3 modelOffset = new Vector3(1.03f, 0.09f, 0.86f);
+    public Vector3 basePosition;
 
     private bool permissionToFire = true;
-    private Vector3 basePosition;
-    private Vector3 baseRotation;
+    public Vector3 baseRotation;
 
 
 
@@ -53,13 +55,8 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         permissionToFire = true;
-        //basePosition = weaponModel.transform.localPosition;
+        basePosition = weaponModel.transform.localPosition + modelOffset;
         baseRotation = weaponModel.transform.localRotation.eulerAngles;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     /**
@@ -80,20 +77,10 @@ public class Weapon : MonoBehaviour
             StartCoroutine(RevokePermissionToFire(timeBetweenShots));
         }
     }
-
-    public void ThrowWeapon()
-    {
-
-    }
     
-    private void PlayFireEffect()
-    {
-
-    }
-
     /**
      * performs an animation of the weapon moving from its local original position and rotation to target position and rotation
-     * TODO: Currently broken, rotates around the player, and ends with new rotation instead of base rotation.
+     * TODO: Currently broken, rotatation and transforms are crazy, but end up at the right place in the end.
      */
     private IEnumerator PlayRecoilAnimation() {
         Vector3 targetPosition = recoilPosition;
@@ -103,14 +90,19 @@ public class Weapon : MonoBehaviour
         //Move weapon to assigned position and rotation in recoiltime seconds.
         while(lerpValue < 1)
         {
-            weaponModel.transform.localPosition = Vector3.LerpUnclamped(basePosition, targetPosition, lerpValue);
+            weaponModel.transform.localPosition = Vector3.LerpUnclamped(Vector3.zero, targetPosition, lerpValue);
             weaponModel.transform.localRotation = Quaternion.LerpUnclamped(Quaternion.Euler(baseRotation), Quaternion.Euler(targetRotation), lerpValue);
             lerpValue += Time.deltaTime/recoilTime;
             yield return new WaitForEndOfFrame();
         }
-        weaponModel.transform.localPosition = basePosition;
+        weaponModel.transform.localPosition = Vector3.zero;
         weaponModel.transform.localRotation = Quaternion.Euler(baseRotation);
-    } 
+    }
+
+    public void resetBasePosition()
+    {
+        basePosition = weaponModel.transform.localPosition + modelOffset;
+    }
 
     /**
      * Takes away the weapons permission to fire for a set amound of seconds
