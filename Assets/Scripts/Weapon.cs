@@ -36,6 +36,11 @@ public class Weapon : MonoBehaviour
     [Tooltip("The initial position of the weapon.")]
     public Vector3 modelOffset = new Vector3(1.03f, 0.09f, 0.86f);
     public Vector3 basePosition;
+    [Tooltip("Decides if capacity gets reduced on each shot")]
+    public bool infinite;
+
+    private Rigidbody rbody;
+    private Collider hitBox;
 
     private bool permissionToFire = true;
     public Vector3 baseRotation;
@@ -51,12 +56,48 @@ public class Weapon : MonoBehaviour
         InPlayerHand, InEnemyHand, Dropped, Thrown
     }
 
+    public void SetMode(WeaponMode mode)
+    {
+        switch(mode)
+        {
+            case WeaponMode.InEnemyHand:
+                infinite = true;
+                rbody.isKinematic = true;
+                hitBox.enabled = false;
+                break;
+
+            case WeaponMode.Dropped:
+                hitBox.enabled = true;
+                rbody.isKinematic = false;
+                gameObject.transform.parent = null;
+                break;
+
+            case WeaponMode.Thrown:
+                hitBox.enabled = true;
+                rbody.isKinematic = false;
+                gameObject.transform.parent = null;
+                break;
+
+            case WeaponMode.InPlayerHand:
+                infinite = false;
+                rbody.isKinematic = true;
+                hitBox.enabled = false;
+                break;
+            default:
+                break;
+        }
+        
+
+    }
     // Start is called before the first frame update
     void Start()
     {
         permissionToFire = true;
         basePosition = weaponModel.transform.localPosition + modelOffset;
         baseRotation = weaponModel.transform.localRotation.eulerAngles;
+        rbody = gameObject.GetComponent<Rigidbody>();
+        hitBox = gameObject.GetComponent<Collider>();
+
     }
 
     /**
@@ -72,7 +113,10 @@ public class Weapon : MonoBehaviour
             Instantiate(fireEffect, firePosition.transform);
             Instantiate(projectile,firePosition.transform);
             Instantiate(casing, casingPosition.transform);
-            capacity -= 1;
+            if (!infinite)
+            {
+                capacity -= 1;
+            }
             StartCoroutine(PlayRecoilAnimation());
             StartCoroutine(RevokePermissionToFire(timeBetweenShots));
         }

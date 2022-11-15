@@ -8,6 +8,7 @@ public class PlayerAbilityController : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction primaryAttack;
     private InputAction secondaryAttack;
+    private InputAction throwItem;
     private InputAction interact;
     private bool fireIsPressed;
     [Tooltip("The weapon held by the player.")]
@@ -28,6 +29,10 @@ public class PlayerAbilityController : MonoBehaviour
         primaryAttack.performed += OnPrimaryAttack;
         primaryAttack.performed += _ => fireIsPressed = true;
         primaryAttack.canceled += _ => fireIsPressed = false;
+
+        throwItem = playerInput.PlayerController.Throwweapon;
+        throwItem.Enable();
+        throwItem.performed += OnThrowInput;
 
         interact = playerInput.PlayerController.Interact;
         interact.Enable();
@@ -74,13 +79,24 @@ public class PlayerAbilityController : MonoBehaviour
         GameObject pickupObject = pickupCollider.GetComponent<InteractablesWithinCollider>().getFirstInteractable();
         if (pickupObject != null && pickupObject.GetComponent<Interactable>().pickUpable == true) {
             weaponSlot = pickupObject;
+            Weapon weaponScript = weaponSlot.GetComponent<Weapon>();
+            Collider weaponCollider = weaponSlot.GetComponent<Collider>();
+
             pickupObject.transform.SetParent(gameObject.transform);
             weaponSlot.transform.localPosition = weaponSlot.GetComponent<Weapon>().basePosition;
-            weaponSlot.transform.localEulerAngles = new Vector3(-90,180,0);//weaponSlot.GetComponent<Weapon>().baseRotation;
+            weaponSlot.transform.localEulerAngles = new Vector3(-90,180,0);
             weaponSlot.GetComponent<Weapon>().resetBasePosition();
             //Disable unwanted components while in hand
-            weaponSlot.GetComponent<Rigidbody>().isKinematic = true;
-            weaponSlot.GetComponent<Collider>().enabled = false;
+            weaponScript.SetMode(Weapon.WeaponMode.InPlayerHand);
         }
+    }
+    
+    private void OnThrowInput(InputAction.CallbackContext context)
+    {
+        Debug.Log("Throwing!");
+        weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.Thrown);
+        float throwForce = 15;
+        weaponSlot.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * throwForce, ForceMode.VelocityChange);
+        weaponSlot = null;
     }
 }
