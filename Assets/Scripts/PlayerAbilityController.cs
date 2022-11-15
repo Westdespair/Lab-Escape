@@ -15,7 +15,12 @@ public class PlayerAbilityController : MonoBehaviour
     public GameObject weaponSlot;
     public GameObject pickupCollider;
     public GameObject projectile;
+    public GameObject claw;
     private Weapon weaponScript;
+    public bool canAttack = true;
+    public float attackCooldown = 1.0f;
+    public bool isAttacking = false;
+
 
     private void Awake()
     {
@@ -60,6 +65,8 @@ public class PlayerAbilityController : MonoBehaviour
                 weaponSlot.GetComponent<Weapon>().FireWeapon();
             }
         }
+       
+        
     }
 
     private void OnPrimaryAttack(InputAction.CallbackContext context)
@@ -71,9 +78,34 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void OnSecondaryAttack(InputAction.CallbackContext context)
     {
+        Debug.Log("Secondary attack input has been pressed");
+        ClawAttack();
 
     }
 
+    public void ClawAttack()
+    {
+        if (isAttacking == false)
+        {
+            isAttacking = true;
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown());
+        }
+
+    }
+
+    IEnumerator ResetAttackCooldown()
+    {
+        StartCoroutine(ResetAttackBool());
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
+    IEnumerator ResetAttackBool()
+    {
+        yield return new WaitForSeconds(1.0f);
+        isAttacking = false;
+    }
     private void OnInteract(InputAction.CallbackContext context) {
         Debug.Log("interact!");
         GameObject pickupObject = pickupCollider.GetComponent<InteractablesWithinCollider>().getFirstInteractable();

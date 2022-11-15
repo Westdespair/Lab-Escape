@@ -7,6 +7,8 @@ public class Health : MonoBehaviour
     public int currentHealth;
     public int maxHealth;
     public bool canDie;
+    public GameObject spawnObject;
+    public GameObject destroyGameObject;
 
 
     // Start is called before the first frame update
@@ -18,10 +20,19 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentHealth < 1)
+        if(spawnObject == null && destroyGameObject == null)
         {
-            OnDeath();
+            if (currentHealth < 1 && CompareTag("Enemy") || CompareTag("Player"))
+            {
+                OnDeathEnemy();
+            }
         }
+        if (currentHealth < 1 && CompareTag("Object"))
+        {
+            OnDestroyObject();
+        }
+
+
     }
 
     public void TakeDamage(int damage)
@@ -30,8 +41,14 @@ public class Health : MonoBehaviour
         Debug.Log("HP left: " +  currentHealth);
     }
 
-    public void OnDeath()
+    public void OnDeathEnemy()
     {
         GameObject.Destroy(gameObject);
+    }
+
+    public void OnDestroyObject()
+    {
+        Instantiate(spawnObject, transform.position, transform.rotation);
+        Destroy(this.gameObject);
     }
 }
