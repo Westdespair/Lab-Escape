@@ -76,8 +76,8 @@ public class PlayerAbilityController : MonoBehaviour
             weaponSlot = pickupObject;
             pickupObject.transform.SetParent(gameObject.transform);
             weaponSlot.transform.localPosition = weaponSlot.GetComponent<Weapon>().basePosition;
-            weaponSlot.transform.localEulerAngles = weaponSlot.GetComponent<Weapon>().baseRotation;
-
+            weaponSlot.transform.localEulerAngles = new Vector3(-90,180,0);//weaponSlot.GetComponent<Weapon>().baseRotation;
+            weaponSlot.GetComponent<Weapon>().resetBasePosition();
             //Disable unwanted components while in hand
             weaponSlot.GetComponent<Rigidbody>().isKinematic = true;
             weaponSlot.GetComponent<Collider>().enabled = false;
