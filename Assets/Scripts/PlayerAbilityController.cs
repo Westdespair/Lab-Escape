@@ -11,6 +11,7 @@ public class PlayerAbilityController : MonoBehaviour
     private bool fireIsPressed;
     public GameObject weaponSlot;
     public GameObject projectile;
+    public GameObject clawSlot;
     private Weapon weaponScript;
 
     private void Awake()
@@ -59,6 +60,8 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void OnSecondaryAttack(InputAction.CallbackContext context)
     {
+        Debug.Log("Secondary attack input has been pressed");
+        clawSlot.GetComponent<PlayerMeleeController>().ClawAttack();
 
     }
 }
