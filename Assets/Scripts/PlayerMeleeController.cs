@@ -32,9 +32,13 @@ public class PlayerMeleeController : MonoBehaviour
 
     public void ClawAttack()
     {
-        isAttacking = true;
-        canAttack = false;
-        StartCoroutine(ResetAttackCooldown());
+        if(isAttacking == false)
+        {
+            isAttacking = true;
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown());
+        }
+        
     }
 
     IEnumerator ResetAttackCooldown()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClawCollissionEnter : MonoBehaviour
 {
 
-    public PlayerMeleeController playerMelee;
+    public PlayerAbilityController playerMelee;
     private int damageAmount = 1;
     private Damage damage;
 
@@ -19,8 +19,8 @@ public class ClawCollissionEnter : MonoBehaviour
     {
         if(other.CompareTag("Enemy") || other.CompareTag("Object") && playerMelee.isAttacking)
         {
+         
             Debug.Log(other.name);
-            Damage target = other.GetComponent<Damage>();
             damage.DealDamage(damageAmount, other.gameObject);
         }
     }
