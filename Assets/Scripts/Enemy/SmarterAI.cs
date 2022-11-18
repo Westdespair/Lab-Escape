@@ -29,7 +29,7 @@ public class SmarterAI : MonoBehaviour
     bool alreadyAttacked;
     public GameObject projectile;
 
-
+    public GameObject weaponSlot;
 
     //States
     public float sightRange, attackRange;
@@ -43,6 +43,10 @@ public class SmarterAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
+    private void Start()
+    {
+        weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.InEnemyHand);
+    }
 
 
     private void Update()
@@ -94,16 +98,22 @@ public class SmarterAI : MonoBehaviour
 
     private void AttackPlayer()
     {
-        //Make sure enemy doesn't move
+        // Make sure enemy doesn't move
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
         if (!alreadyAttacked)
         {
             ///Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            //Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            //rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            weaponSlot.GetComponent<Weapon>().FireWeapon();
+            weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.InEnemyHand);
+
+            weaponSlot.transform.localPosition = weaponSlot.GetComponent<Weapon>().basePosition;
+            weaponSlot.transform.localEulerAngles = new Vector3(-90, 180, -2);
+            weaponSlot.GetComponent<Weapon>().resetBasePosition();
 
             ///End of attack code
             alreadyAttacked = true;
