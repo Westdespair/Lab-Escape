@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class CollitionDestroyObject : MonoBehaviour
 {
+
+    public GameObject spawnObject;
+    public GameObject destroyGameObject;
+
     private void OnCollisionEnter(Collision collision) 
     {
+        Instantiate(spawnObject, transform.position, transform.rotation);
 
-        Destroy(this.gameObject);
+
+        GameObject.Destroy(destroyGameObject);
     }
 }

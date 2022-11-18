@@ -7,21 +7,43 @@ using UnityEngine;
  */
 public class Weapon : MonoBehaviour
 {
+    [Tooltip("Model of the weapon.")]
     public GameObject weaponModel;
-    public bool infiniteForEnemies;
+    [Tooltip("Amount of shots a weapon can fire before being empty.")]
     public int capacity;
-    public float accuracyPercentage = 100;
+    [Tooltip("Max angle a bullet is allowed to deviate from its forward path in degrees.")]
+    public float bulletDeviation = 0;
+    [Tooltip("Amount of bullets a weapon can fire per second.")]
     public float shotsPerSecond;
-    public int damage;
+    [Tooltip("Projectile that will be fired from the muzzle.")]
     public GameObject projectile;
-    private bool permissionToFire;
+    [Tooltip("Effect that will be played from the muzzle.")]
     public GameObject fireEffect;
-    public GameObject fireLocation;
+    [Tooltip("Position effects and projectiles will be spawned from. Effectively a muzzle.")]
+    public GameObject firePosition;
+    [Tooltip("Position bullet casings will launch from after firing.")]
+    public GameObject casingPosition;
+    [Tooltip("Object that will be spawned from casingposition.")]
+    public GameObject casing;
+    [Tooltip("Final relative position of the recoil animation.")]
     public Vector3 recoilPosition;
+    [Tooltip("Final relative rotation of the recoil animation.")]
     public Vector3 recoilRotation;
+    [Tooltip("The time the recoil animation takes to finish.")]
     public float recoilTime;
-    public bool canBePickedUp;
-    private FireMode mode;
+    [Tooltip("How inputs will interact with the weapon.")]
+    public FireMode mode;
+    [Tooltip("The initial position of the weapon.")]
+    public Vector3 modelOffset = new Vector3(1.03f, 0.09f, 0.86f);
+    public Vector3 basePosition;
+    [Tooltip("Decides if capacity gets reduced on each shot")]
+    public bool infinite;
+
+    private Rigidbody rbody;
+    private Collider hitBox;
+
+    private bool permissionToFire = true;
+    public Vector3 baseRotation;
 
 
 
@@ -34,58 +56,97 @@ public class Weapon : MonoBehaviour
         InPlayerHand, InEnemyHand, Dropped, Thrown
     }
 
+    public void SetMode(WeaponMode mode)
+    {
+        switch(mode)
+        {
+            case WeaponMode.InEnemyHand:
+                infinite = true;
+                rbody.isKinematic = true;
+                hitBox.enabled = false;
+                break;
+
+            case WeaponMode.Dropped:
+                hitBox.enabled = true;
+                rbody.isKinematic = false;
+                gameObject.transform.parent = null;
+                break;
+
+            case WeaponMode.Thrown:
+                hitBox.enabled = true;
+                rbody.isKinematic = false;
+                gameObject.transform.parent = null;
+                break;
+
+            case WeaponMode.InPlayerHand:
+                infinite = false;
+                rbody.isKinematic = true;
+                hitBox.enabled = false;
+                break;
+            default:
+                break;
+        }
+        
+
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        permissionToFire = true;
+        basePosition = weaponModel.transform.localPosition + modelOffset;
+        baseRotation = weaponModel.transform.localRotation.eulerAngles;
+        rbody = gameObject.GetComponent<Rigidbody>();
+        hitBox = gameObject.GetComponent<Collider>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /**
-     * Attempts to fire the weapon
+     * Attempts to fire the weapon.
+     * TODO: Add functionality for the accuracy modifier.
      */
     public void FireWeapon()
     {
         float timeBetweenShots = 1 / shotsPerSecond;
-        if (permissionToFire)
+        if (permissionToFire && capacity > 0)
         {
-            Instantiate(fireEffect, fireLocation.transform);
-            Instantiate(projectile,fireLocation.transform);
-            PlayRecoilAnimation();
-            RevokePermissionToFire(timeBetweenShots);
+            Debug.Log("Fire!");
+            Instantiate(fireEffect, firePosition.transform);
+            Instantiate(projectile,firePosition.transform);
+            Instantiate(casing, casingPosition.transform);
+            if (!infinite)
+            {
+                capacity -= 1;
+            }
+            StartCoroutine(PlayRecoilAnimation());
+            StartCoroutine(RevokePermissionToFire(timeBetweenShots));
         }
     }
-
-    public void ThrowWeapon()
-    {
-
-    }
     
-    private void PlayFireEffect()
-    {
-
-    }
-
+    /**
+     * performs an animation of the weapon moving from its local original position and rotation to target position and rotation
+     * TODO: Currently broken, rotatation and transforms are crazy, but end up at the right place in the end.
+     */
     private IEnumerator PlayRecoilAnimation() {
-        Vector3 basePosition = weaponModel.transform.position;
         Vector3 targetPosition = recoilPosition;
-        Vector3 baseRotation = weaponModel.transform.rotation.eulerAngles;
         Vector3 targetRotation = recoilRotation;
         float lerpValue = 0;
 
+        //Move weapon to assigned position and rotation in recoiltime seconds.
         while(lerpValue < 1)
         {
-            weaponModel.transform.position = Vector3.LerpUnclamped(basePosition, targetPosition, lerpValue);
-            weaponModel.transform.rotation = Quaternion.LerpUnclamped(Quaternion.Euler(baseRotation), Quaternion.Euler(targetRotation), lerpValue);
+            weaponModel.transform.localPosition = Vector3.LerpUnclamped(Vector3.zero, targetPosition, lerpValue);
+            weaponModel.transform.localRotation = Quaternion.LerpUnclamped(Quaternion.Euler(baseRotation), Quaternion.Euler(targetRotation), lerpValue);
             lerpValue += Time.deltaTime/recoilTime;
             yield return new WaitForEndOfFrame();
         }
-    } 
+        weaponModel.transform.localPosition = Vector3.zero;
+        weaponModel.transform.localRotation = Quaternion.Euler(baseRotation);
+    }
+
+    public void resetBasePosition()
+    {
+        basePosition = weaponModel.transform.localPosition + modelOffset;
+    }
 
     /**
      * Takes away the weapons permission to fire for a set amound of seconds
@@ -95,14 +156,5 @@ public class Weapon : MonoBehaviour
         permissionToFire = false;
         yield return new WaitForSeconds(seconds);
         permissionToFire = true;
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-
-    }
-
-    private void SetState(FireMode fireMode) {
-        mode = fireMode;
     }
 }

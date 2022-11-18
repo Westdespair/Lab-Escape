@@ -6,7 +6,7 @@ public class DamageCollision : MonoBehaviour
 {
     private Collider damageCollider;
     private Damage damage;
-    public int damageAmount;
+    public int damageAmount = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,7 @@ public class DamageCollision : MonoBehaviour
     }
 
     //Deals damage to the object it collides with if it has a health component. 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         damage.DealDamage(damageAmount,collision.gameObject);
     }
