@@ -17,9 +17,7 @@ public class ClawCollissionEnter : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("Enemy") || other.CompareTag("Object") && playerMelee.isAttacking)
-        {
-         
+        if(other.CompareTag("Enemy") && playerMelee.isAttacking || other.CompareTag("Object") && playerMelee.isAttacking) { 
             Debug.Log(other.name);
             damage.DealDamage(damageAmount, other.gameObject);
         }
