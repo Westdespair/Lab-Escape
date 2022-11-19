@@ -60,7 +60,7 @@ public class PlayerAbilityController : MonoBehaviour
     {
         if (weaponSlot != null)
         {
-            if(fireIsPressed && weaponSlot.GetComponent<Weapon>().mode == Weapon.FireMode.Auto)
+            if(fireIsPressed && weaponSlot.GetComponent<Weapon>().mode == Weapon.FireMode.FullAuto)
             {
                 weaponSlot.GetComponent<Weapon>().FireWeapon();
             }
