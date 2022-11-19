@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5567575532812384926}
   - component: {fileID: 5567575532812384927}
-  - component: {fileID: 1683876006}
+  - component: {fileID: 5567575532812384924}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -258,7 +258,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1683876006
+--- !u!114 &5567575532812384924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -270,7 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bec3fdfbcc4507f4ebb2ab84e8ce02f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixer: {fileID: 24100000, guid: b2823f290ba5bc048865a1479802ec56, type: 2}
   actionSource: {fileID: 5567575531169847215}
   actionClips:
   - {fileID: 8300000, guid: 0369f6226a86c7e4284efcdb9062164e, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
