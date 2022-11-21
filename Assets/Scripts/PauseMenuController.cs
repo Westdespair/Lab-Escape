@@ -10,6 +10,9 @@ public class PauseMenuController : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
+    public static PauseMenuController instance;
+
+
     // Update is called once per frame
     void Update()
     {
@@ -26,6 +29,22 @@ public class PauseMenuController : MonoBehaviour
             }
         }
     }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            
+              DontDestroyOnLoad(gameObject);
+        }
+
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     public void Resume()
     {
