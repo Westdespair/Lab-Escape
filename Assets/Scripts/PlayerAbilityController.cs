@@ -130,5 +130,6 @@ public class PlayerAbilityController : MonoBehaviour
         float throwForce = 15;
         weaponSlot.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * throwForce, ForceMode.VelocityChange);
         weaponSlot = null;
+        AudioManager.instance.ActionSFX(0);
     }
 }
