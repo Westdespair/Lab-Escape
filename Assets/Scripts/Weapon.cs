@@ -95,6 +95,7 @@ public class Weapon : MonoBehaviour
                 gameObject.GetComponent<SpinRigidBody>().enabled = true;
                 gameObject.GetComponent<Damage>().enabled = true;
                 gameObject.GetComponent<DamageCollision>().enabled = true;
+                gameObject.GetComponent<Interactable>().pickUpable = false;
                 break;
 
             case WeaponMode.InPlayerHand:

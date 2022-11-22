@@ -22,14 +22,17 @@ public class InteractablesWithinCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        pruneList();
     }
 
     public GameObject getFirstInteractable() {
+        pruneList();
         return (GameObject)interactableList[0];
     }
 
-
+    /**
+     * Adds interactable objects that enter the trigger
+     */
     private void OnTriggerEnter(Collider other) {
         GameObject collidedObject = other.gameObject;
         if (collidedObject.GetComponent<Interactable>() != null) {
@@ -37,6 +40,9 @@ public class InteractablesWithinCollider : MonoBehaviour
         }
     }
 
+    /*
+     * Removes interactable objects that exit the trigger
+     */
     private void OnTriggerExit(Collider other) {
         GameObject exitObject = other.gameObject;
         interactableList.Remove(exitObject);
@@ -44,5 +50,18 @@ public class InteractablesWithinCollider : MonoBehaviour
 
     private List<GameObject> getInteractableList() {
         return interactableList;
+    }
+
+    /**
+     * Removes any objects that haven't been pruned by ontriggerexit.
+     */
+    private void pruneList() {
+        foreach (var potentialNullObject in interactableList)
+        {
+            if (potentialNullObject == null || !potentialNullObject.GetComponent<Interactable>().pickUpable)
+            {
+                interactableList.Remove(potentialNullObject);
+            }
+        }
     }
 }
