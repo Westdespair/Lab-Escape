@@ -19,12 +19,6 @@ public class InteractablesWithinCollider : MonoBehaviour
         interactableAreaCollider = GetComponent<Collider>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        pruneList();
-    }
-
     public GameObject getFirstInteractable() {
         pruneList();
         return (GameObject)interactableList[0];
