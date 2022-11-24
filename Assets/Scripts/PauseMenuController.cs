@@ -11,7 +11,7 @@ public class PauseMenuController : MonoBehaviour
     public GameObject pauseMenuUI;
     //public PlayerInput playerInput = GetComponent<PlayerInput>();
 
-    public static PauseMenuController MonoBehaviour;
+    public static PauseMenuController instance;
 
 
     // Update is called once per frame
@@ -33,20 +33,20 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
-    //void Awake()
-    //{
-      //  if (instance == null)
-        //{
-          //  instance = this;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
             
-            //  DontDestroyOnLoad(gameObject);
-        //}
+              DontDestroyOnLoad(gameObject);
+        }
 
-        //else
-        //{
-          //  Destroy(gameObject);
-        //}
-   // }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
 
     public void Resume()
