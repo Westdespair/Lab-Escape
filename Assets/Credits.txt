@@ -4,3 +4,6 @@ Free audio sources
 - https://pixabay.com/sound-effects/search/reload/?manual_search=1&order=None
 - https://opengameart.org/content/fleshy-fight-sounds
 - https://opengameart.org/content/shotgun-reload-sound-effects
+
+Material assets
+- https://assetstore.unity.com/packages/2d/textures-materials/sci-fi-texture-pack-1-23301
