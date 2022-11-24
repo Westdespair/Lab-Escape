@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     private InputAction jump;
     private InputAction dash;
     private PlayerInput playerInput;
-    private bool permissionToJump = true;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
