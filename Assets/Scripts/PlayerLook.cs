@@ -24,6 +24,10 @@ public class PlayerLook : MonoBehaviour
     private float horizontalRotation;
     private PlayerInput playerInput;
     private InputAction look;
+    float xRotation = 0f;
+    public Transform playerbody;
+    public float mouseSense = 100f;
+
 
     private void Awake()
     {
@@ -58,11 +62,14 @@ public class PlayerLook : MonoBehaviour
     {
         Vector2 lookInput = look.ReadValue<Vector2>();
 
+        float mouseX = lookInput.x * mouseSense * Time.deltaTime;
+        float mouseY = lookInput.y * mouseSense * Time.deltaTime;
 
-        //Clamps vertical rotation to -90 and 90 degrees. 
-        verticalRotation = Mathf.Clamp(verticalRotation + lookInput.y * verticalSensitivity * Time.deltaTime * (-1), -90, 90);
-        horizontalRotation += lookInput.x * horizontalSensitivity * Time.deltaTime;
 
-        playerCamera.transform.eulerAngles = new Vector3(verticalRotation, horizontalRotation, 0);
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerbody.Rotate(Vector3.up * mouseX);
     }
 }
