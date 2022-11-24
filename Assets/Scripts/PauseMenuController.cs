@@ -9,6 +9,7 @@ public class PauseMenuController : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    //public PlayerInput playerInput = GetComponent<PlayerInput>();
 
     public static PauseMenuController instance;
 
@@ -20,10 +21,12 @@ public class PauseMenuController : MonoBehaviour
         {
             if(GameIsPaused)
             {
+                Cursor.lockState = CursorLockMode.Locked;
                 Resume();
             }
-            else 
+            else if(!GameIsPaused)
             {
+                Cursor.lockState = CursorLockMode.None;
                 Pause();
 
             }
