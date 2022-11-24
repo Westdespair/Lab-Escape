@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ClawCollissionEnter : MonoBehaviour
@@ -8,6 +6,7 @@ public class ClawCollissionEnter : MonoBehaviour
     public PlayerAbilityController playerMelee;
     private int damageAmount = 1;
     private Damage damage;
+    public Collider col;
 
 
     private void Start()
@@ -15,11 +14,11 @@ public class ClawCollissionEnter : MonoBehaviour
         damage = gameObject.GetComponent<Damage>();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider col)
     {
-        if(other.CompareTag("Enemy") && playerMelee.isAttacking || other.CompareTag("Object") && playerMelee.isAttacking) { 
-            Debug.Log(other.name);
-            damage.DealDamage(damageAmount, other.gameObject);
+        if((col.CompareTag("Enemy") && playerMelee.isAttacking) || (col.CompareTag("Object") && playerMelee.isAttacking)) { 
+            Debug.Log(col.name);
+            damage.DealDamage(damageAmount, col.gameObject);
         }
     }
 }
