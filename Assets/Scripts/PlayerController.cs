@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour
     private InputAction dash;
     private PlayerInput playerInput;
     private bool permissionToJump = true;
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+    bool isGrounded;
+    public CharacterController controller;
+    Vector3 velocity;
+    
 
     private void Awake()
     {
@@ -47,34 +54,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveplayerRelativeToCamera();
+
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        float x = moveDirection.ReadValue<Vector2>().x;
+        float z = moveDirection.ReadValue<Vector2>().y;
+
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        controller.Move(move * playerSpeed * Time.deltaTime);
+        velocity.y += -9.81f * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
     }
 
-    void MoveplayerRelativeToCamera()
-    {
-       Vector2 movement = GetMoveDirection();
-       Vector3 cameraRelativeMovement = WorldVector3ToLocalCameraVector2(movement) * playerSpeed * Time.deltaTime;
-        rb.AddForce(cameraRelativeMovement, ForceMode.VelocityChange);
- 
-    }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        permissionToJump = true;
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        permissionToJump = false;
-    }
-
-    //private bool isOnGround()
-    //{
-    //return Physics.CheckCapsule(new Vector3(playerCollider.center.x, playerCollider.bounds.min.y, playerCollider.center.z)
-    //, new Vector3(playerCollider.bounds.center.x, playerCollider.bounds.min.y - 0.25f, playerCollider.bounds.center.z)
-    //, playerCollider.radius, LayerMask.NameToLayer("Player"));
-
-    //}
     private void OnJump(InputAction.CallbackContext context)
     {
         TryJump();
@@ -87,9 +81,9 @@ public class PlayerController : MonoBehaviour
 
     private void TryJump()
     {
-        if (permissionToJump)
+        if (isGrounded && velocity.y< 0)
         {
-            rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * -9.81f);
         }
     }
 
@@ -100,7 +94,7 @@ public class PlayerController : MonoBehaviour
     private void TryDash()
     {
         Vector3 cameraRelativeMovement = WorldVector3ToLocalCameraVector2(GetMoveDirection()) * dashForce;
-        rb.AddForce(cameraRelativeMovement, ForceMode.VelocityChange);
+        rb.AddForce(cameraRelativeMovement, ForceMode.Impulse);
         Debug.Log("Dashing");
     }
 
