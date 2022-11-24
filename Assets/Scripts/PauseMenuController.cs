@@ -9,8 +9,9 @@ public class PauseMenuController : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    //public PlayerInput playerInput = GetComponent<PlayerInput>();
 
-    public static PauseMenuController instance;
+    public static PauseMenuController MonoBehaviour;
 
 
     // Update is called once per frame
@@ -20,30 +21,32 @@ public class PauseMenuController : MonoBehaviour
         {
             if(GameIsPaused)
             {
+                Cursor.lockState = CursorLockMode.Locked;
                 Resume();
             }
-            else 
+            else if(!GameIsPaused)
             {
+                Cursor.lockState = CursorLockMode.None;
                 Pause();
 
             }
         }
     }
 
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
+    //void Awake()
+    //{
+      //  if (instance == null)
+        //{
+          //  instance = this;
             
-              DontDestroyOnLoad(gameObject);
-        }
+            //  DontDestroyOnLoad(gameObject);
+        //}
 
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+        //else
+        //{
+          //  Destroy(gameObject);
+        //}
+   // }
 
 
     public void Resume()
