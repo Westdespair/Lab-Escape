@@ -9,7 +9,6 @@ public class PauseMenuController : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
-    //public PlayerInput playerInput = GetComponent<PlayerInput>();
 
     public static PauseMenuController instance;
 
@@ -33,20 +32,20 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            
-              DontDestroyOnLoad(gameObject);
-        }
-
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    //void Awake()
+   // {
+     //   if (instance == null)
+       // {
+         //   instance = this;
+           // 
+             // DontDestroyOnLoad(gameObject);
+        //}
+//
+  //      else
+    //    {
+      //      Destroy(gameObject);
+        //}
+    //}
 
 
     public void Resume()
@@ -65,6 +64,9 @@ public class PauseMenuController : MonoBehaviour
 
     public void LoadMenu()
     {
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+
         SceneManager.LoadScene(0);
         Debug.Log("Loading Menu..");
 
