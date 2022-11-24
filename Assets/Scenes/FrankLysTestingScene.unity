@@ -860,6 +860,7 @@ MonoBehaviour:
   walkPointRange: 4
   timeBetweenAttacks: 3
   projectile: {fileID: 4872228120916678168, guid: d8f2d9c466317554a88764db19e8a2af, type: 3}
+  weaponSlot: {fileID: 0}
   sightRange: 20
   attackRange: 10
   playerInSightRange: 0
@@ -1191,7 +1192,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 572138285}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -1.8, y: 7.91, z: 7.79}
 --- !u!1001 &273729761
 PrefabInstance:
@@ -36281,7 +36282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c950868482e046249bd676b5425dd5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunScript: {fileID: 1457247281}
+  gunScript: {fileID: 0}
   rb: {fileID: 1457247280}
   coll: {fileID: 1457247279}
   player: {fileID: 0}
@@ -37272,7 +37273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c950868482e046249bd676b5425dd5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunScript: {fileID: 1710239478}
+  gunScript: {fileID: 0}
   rb: {fileID: 1710239476}
   coll: {fileID: 1710239477}
   player: {fileID: 0}
@@ -37914,6 +37915,8 @@ MonoBehaviour:
   currentHealth: 1
   maxHealth: 1
   canDie: 1
+  spawnObject: {fileID: 0}
+  destroyGameObject: {fileID: 0}
 --- !u!1001 &1997097514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38001,7 +38004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1474276018283192316, guid: 5c19e998b1c87dd40a4905e01b30e15e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.37
+      value: 1.931
       objectReference: {fileID: 0}
     - target: {fileID: 1474276018283192316, guid: 5c19e998b1c87dd40a4905e01b30e15e, type: 3}
       propertyPath: m_LocalPosition.z

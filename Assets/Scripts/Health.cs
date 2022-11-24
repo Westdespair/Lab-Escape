@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
     {
         if(spawnObject == null && destroyGameObject == null)
         {
-            if (currentHealth < 1 && CompareTag("Enemy") || CompareTag("Player"))
+            if ((currentHealth < 1 && CompareTag("Enemy")) || (currentHealth < 1 && CompareTag("Player")))
             {
                 OnDeathEnemy();
             }
