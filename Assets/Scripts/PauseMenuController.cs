@@ -25,6 +25,9 @@ public class PauseMenuController : MonoBehaviour
             }
             else if(!GameIsPaused)
             {
+                        Time.timeScale = 1f;
+                        GameIsPaused = false;
+
                 Cursor.lockState = CursorLockMode.None;
                 Pause();
 
@@ -32,20 +35,20 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
-    //void Awake()
-   // {
-     //   if (instance == null)
-       // {
-         //   instance = this;
-           // 
-             // DontDestroyOnLoad(gameObject);
-        //}
-//
-  //      else
-    //    {
-      //      Destroy(gameObject);
-        //}
-    //}
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            
+              DontDestroyOnLoad(gameObject);
+        }
+
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
 
     public void Resume()
@@ -64,6 +67,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void LoadMenu()
     {
+        pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
 
