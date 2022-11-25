@@ -44,7 +44,7 @@ public class PauseMenuController : MonoBehaviour
               DontDestroyOnLoad(gameObject);
         }
 
-        else
+      else
         {
             Destroy(gameObject);
         }
