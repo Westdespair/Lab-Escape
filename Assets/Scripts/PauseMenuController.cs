@@ -9,7 +9,6 @@ public class PauseMenuController : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
-    //public PlayerInput playerInput = GetComponent<PlayerInput>();
 
     public static PauseMenuController instance;
 
@@ -26,6 +25,9 @@ public class PauseMenuController : MonoBehaviour
             }
             else if(!GameIsPaused)
             {
+                        Time.timeScale = 1f;
+                        GameIsPaused = false;
+
                 Cursor.lockState = CursorLockMode.None;
                 Pause();
 
@@ -65,6 +67,10 @@ public class PauseMenuController : MonoBehaviour
 
     public void LoadMenu()
     {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+
         SceneManager.LoadScene(0);
         Debug.Log("Loading Menu..");
 
