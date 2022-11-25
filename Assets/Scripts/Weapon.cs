@@ -49,7 +49,8 @@ public class Weapon : MonoBehaviour
     [Tooltip("Amount of fired projectiles per shot")]
     [Min(1)]
     public int projectilesPerShot = 1;
-
+    [Tooltip("The mode the weapon starts with, whether it is held by an enemy, player, or dropped on the ground.")]
+    public WeaponMode initialWeaponMode;
 
     private Rigidbody rbody;
     private Collider hitBox;
@@ -117,6 +118,7 @@ public class Weapon : MonoBehaviour
         hitBox = gameObject.GetComponent<Collider>();
         ammoCount = magazineSize;
         trailRenderer = GetComponent<TrailRenderer>();
+        SetMode(initialWeaponMode);
     }
 
     /**

@@ -7,7 +7,6 @@ using UnityEngine.AI;
 // Will comment the code more, but as for now only the main parts has comments
 
 public class SmarterAI : MonoBehaviour
-
 {
     public NavMeshAgent agent;
 
@@ -17,17 +16,16 @@ public class SmarterAI : MonoBehaviour
 
     public float health;
 
-    //Patroling
+    //Patrolling
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
-
-
 
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
+    private Animator animator;
 
     public GameObject weaponSlot;
 
@@ -35,12 +33,10 @@ public class SmarterAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
-
-
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -48,21 +44,23 @@ public class SmarterAI : MonoBehaviour
         weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.InEnemyHand);
     }
 
-
     private void Update()
     {
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
+        if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
+
+        if (health <= 0)
+        {
+            die();
+        }
     }
 
-
-
-    private void Patroling()
+    private void Patrolling()
     {
         if (!walkPointSet) SearchWalkPoint();
 
@@ -86,7 +84,15 @@ public class SmarterAI : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
     }
-
+    public void die()
+    {
+        animator.SetBool("isDead", true);
+        agent.enabled = false;
+        weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.Dropped);
+        weaponSlot = null;
+        gameObject.GetComponent<LifeTIme>().enabled = true;
+        gameObject.GetComponent<SmarterAI>().enabled = false;
+    }
 
 
     private void ChasePlayer()
@@ -94,26 +100,27 @@ public class SmarterAI : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
-
-
     private void AttackPlayer()
     {
         // Make sure enemy doesn't move
         agent.SetDestination(transform.position);
-        transform.LookAt(player);
-
-        if (!alreadyAttacked)
-        {
+        //transform.rotation.SetEulerAngles(0, transform.LookAt(player).y,  ;
+        //transform.LookAt(player);
+        Vector3 targetPostition = new Vector3(player.position.x, transform.position.y, player.position.z);
+        transform.LookAt(targetPostition);
+        if (!alreadyAttacked){
             ///Attack code here
             //Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             //rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-            weaponSlot.GetComponent<Weapon>().FireWeapon();
-            weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.InEnemyHand);
-
-            weaponSlot.transform.localPosition = weaponSlot.GetComponent<Weapon>().basePosition;
-            weaponSlot.transform.localEulerAngles = new Vector3(-90, 180, -2);
-            weaponSlot.GetComponent<Weapon>().resetBasePosition();
+            if(weaponSlot != null)
+            {
+                weaponSlot.GetComponent<Weapon>().FireWeapon();
+                weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.InEnemyHand);
+                weaponSlot.transform.localPosition = weaponSlot.GetComponent<Weapon>().basePosition;
+                weaponSlot.transform.localEulerAngles = new Vector3(-90, 180, -2);
+                weaponSlot.GetComponent<Weapon>().resetBasePosition();
+            }
 
             ///End of attack code
             alreadyAttacked = true;
@@ -126,12 +133,14 @@ public class SmarterAI : MonoBehaviour
         alreadyAttacked = false;
     }
 
-
-
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+
+        if (health <= 0)
+        {
+            animator.SetBool("isDead", true);
+        }
     }
 
     private void DestroyEnemy()
