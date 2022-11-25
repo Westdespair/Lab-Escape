@@ -90,6 +90,7 @@ public class SmarterAI : MonoBehaviour
         agent.enabled = false;
         weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.Dropped);
         weaponSlot = null;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
         gameObject.GetComponent<LifeTIme>().enabled = true;
         gameObject.GetComponent<SmarterAI>().enabled = false;
     }
