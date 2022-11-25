@@ -133,6 +133,7 @@ MonoBehaviour:
   bulletDeviation: 5.5
   shotsPerSecond: 7
   projectilesPerShot: 12
+  initialWeaponMode: 2
 --- !u!54 &274047523
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -43,7 +43,14 @@ public class Health : MonoBehaviour
 
     public void OnDeathEnemy()
     {
-        GameObject.Destroy(gameObject);
+        if (CompareTag("Enemy"))
+        {
+            gameObject.GetComponent<SmarterAI>().die();
+        }
+        else
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 
     public void OnDestroyObject()
