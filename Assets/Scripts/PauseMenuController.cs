@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
-
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
 
     public static PauseMenuController instance;
+
+    public GameObject gameObject;
 
 
     // Update is called once per frame
