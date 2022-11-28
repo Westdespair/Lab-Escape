@@ -3,7 +3,6 @@ using UnityEngine.AI;
 
 // Class to see how to implement a smarter AI, 
 // Tutorial fetched from: https://www.youtube.com/watch?v=UjkSFoLxesw&ab_channel=Dave%2FGameDevelopment
-
 // Will comment the code more, but as for now only the main parts has comments
 
 public class SmarterAI : MonoBehaviour
@@ -73,6 +72,7 @@ public class SmarterAI : MonoBehaviour
         if (distanceToWalkPoint.magnitude < 1f)
             walkPointSet = false;
     }
+
     private void SearchWalkPoint()
     {
         //Calculate random point in range
@@ -84,6 +84,7 @@ public class SmarterAI : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
     }
+
     public void die()
     {
         animator.SetBool("isDead", true);
@@ -93,8 +94,8 @@ public class SmarterAI : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
         gameObject.GetComponent<LifeTIme>().enabled = true;
         gameObject.GetComponent<SmarterAI>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = false;
     }
-
 
     private void ChasePlayer()
     {
@@ -105,15 +106,10 @@ public class SmarterAI : MonoBehaviour
     {
         // Make sure enemy doesn't move
         agent.SetDestination(transform.position);
-        //transform.rotation.SetEulerAngles(0, transform.LookAt(player).y,  ;
-        //transform.LookAt(player);
         Vector3 targetPostition = new Vector3(player.position.x, transform.position.y, player.position.z);
         transform.LookAt(targetPostition);
         if (!alreadyAttacked){
             ///Attack code here
-            //Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            //rb.AddForce(transform.up * 8f, ForceMode.Impulse);
             if(weaponSlot != null)
             {
                 weaponSlot.GetComponent<Weapon>().FireWeapon();
@@ -122,7 +118,6 @@ public class SmarterAI : MonoBehaviour
                 weaponSlot.transform.localEulerAngles = new Vector3(-90, 180, -2);
                 weaponSlot.GetComponent<Weapon>().resetBasePosition();
             }
-
             ///End of attack code
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -148,8 +143,6 @@ public class SmarterAI : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-
 
     private void OnDrawGizmosSelected()
     {

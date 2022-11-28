@@ -87,6 +87,7 @@ public class PlayerAbilityController : MonoBehaviour
     {
         if (isAttacking == false)
         {
+            GameObject.Find("Monster hand").GetComponent<Animation>().Play();
             isAttacking = true;
             canAttack = false;
             StartCoroutine(ResetAttackCooldown());
