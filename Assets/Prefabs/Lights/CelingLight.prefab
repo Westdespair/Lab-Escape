@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6361699262662374493}
+  - component: {fileID: 184269517}
+  - component: {fileID: 1100605807477054432}
   m_Layer: 0
   m_Name: CelingLight
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +35,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &184269517
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361699262662374482}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21937561, y: 0.1273818, z: 1.350483}
+  m_Center: {x: -0.0011367798, y: 0.05168581, z: -0.0000019073486}
+--- !u!114 &1100605807477054432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361699262662374482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48e83b81e7f3fc49b1b66f9ad8589ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 1
+  maxHealth: 1
+  canDie: 0
+  spawnObject: {fileID: 3706207654633350355, guid: 662f2848ccc809b43956c93b0c4abe06, type: 3}
+  destroyGameObject: {fileID: 6361699262662374482}
 --- !u!1 &6361699263312175154
 GameObject:
   m_ObjectHideFlags: 0
