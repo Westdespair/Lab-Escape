@@ -12,7 +12,11 @@ public class LoadSceneToMainMenu : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
-        { SceneManager.LoadScene(nameOfSceneToLoad); }
+        {
+            SceneManager.LoadScene(nameOfSceneToLoad);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
 }
