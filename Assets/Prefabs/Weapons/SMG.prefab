@@ -66,6 +66,8 @@ MonoBehaviour:
   recoilTime: 0.25
   basePosition: {x: 0, y: 0, z: 0}
   baseRotation: {x: 0, y: 0, z: 0}
+  shotSound: 2
+  pickupSound: 0
   mode: 0
   magazineSize: 45
   bulletDeviation: 3.8

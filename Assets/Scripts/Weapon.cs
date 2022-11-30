@@ -37,6 +37,10 @@ public class Weapon : MonoBehaviour
     [Space(15)]
 
     [Header("Weapon function configurations")]
+    [Tooltip("The filename of the weapon shot sound")]
+    public int shotSound;
+    [Tooltip("The filename of the weapon pickup sound")]
+    public int pickupSound;
     [Tooltip("How the player will interact with the fireweapon method")]
     public FireMode mode;
     [Tooltip("Amount of shots a weapon can fire before being empty.")]
@@ -100,6 +104,9 @@ public class Weapon : MonoBehaviour
                 break;
 
             case WeaponMode.InPlayerHand:
+                AudioManager.instance.ActionSFX(pickupSound);
+                Debug.Log("SOUND: " + pickupSound);
+                //AudioManager.instance.ActionSFX(0);
                 infiniteAmmo = false;
                 rbody.isKinematic = true;
                 trailRenderer.enabled = false;
@@ -130,6 +137,7 @@ public class Weapon : MonoBehaviour
         if (permissionToFire && ammoCount > 0)
         {
             Debug.Log("Fire!");
+            AudioManager.instance.ActionSFX(shotSound);
             Instantiate(fireEffect, firePosition.transform);
             //Fires projectilesPerShot amount of bullets within a "circle" defined by bulletdeviation angle.
             for (int i = 0; i<projectilesPerShot; i++) {

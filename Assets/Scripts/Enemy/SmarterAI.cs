@@ -87,6 +87,8 @@ public class SmarterAI : MonoBehaviour
 
     public void die()
     {
+        AudioManager.instance.ActionSFX(4);
+        AudioManager.instance.ActionSFX(5);
         animator.SetBool("isDead", true);
         agent.enabled = false;
         weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.Dropped);
@@ -131,6 +133,7 @@ public class SmarterAI : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        AudioManager.instance.ActionSFX(4);
         health -= damage;
 
         if (health <= 0)

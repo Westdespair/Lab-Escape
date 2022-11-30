@@ -36,6 +36,26 @@ public class AudioManager : MonoBehaviour
     actionSource.PlayOneShot(clip);
     } 
 
+    /**
+     * Plays a sound if there is a matching filename in the list. 
+     */
+    public void PlayActionSFXByFilename(string filename)
+    {
+        int i = 0;
+        bool soundFound = false;
+        Debug.Log(actionClips[i].ToString());
+        while (i < actionClips.Capacity && !soundFound)
+        {
+            Debug.Log(actionClips[i].ToString());
+            if (actionClips[i].ToString() == (filename))
+            {
+                actionSource.PlayOneShot(actionClips[i]);
+                soundFound = true;
+            }
+            i++;
+        }
+    }
+
     void Load()
     {
         float musicVolume = PlayerPrefs.GetFloat(MUSIC_KEY, 0.5f);

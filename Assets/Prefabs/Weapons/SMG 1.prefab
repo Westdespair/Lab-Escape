@@ -51,9 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponModel: {fileID: 8592313532308883817}
-  capacity: 45
-  bulletDeviation: 100
-  shotsPerSecond: 7
   projectile: {fileID: 3322400071079489638, guid: 5714fc1de14126e49b4d71193ca3027f, type: 3}
   fireEffect: {fileID: 4540949091118264275, guid: b7e1b7bc6ebd3d14b90bb443ad661676, type: 3}
   firePosition: {fileID: 8934981630163330876}
@@ -61,12 +58,18 @@ MonoBehaviour:
   casing: {fileID: 7500402250172844309, guid: 6ab4a49c53019f34e939fb20f1e5b24a, type: 3}
   recoilPosition: {x: 0, y: -0.015, z: 0.005}
   recoilRotation: {x: 32, y: 15, z: 0}
-  recoilTime: 0.25
-  mode: 0
   modelOffset: {x: 1.03, y: 0.09, z: 0.86}
+  recoilTime: 0.25
   basePosition: {x: 0, y: 0, z: 0}
-  infinite: 0
   baseRotation: {x: 0, y: 0, z: 0}
+  shotSound: 2
+  pickupSound: 0
+  mode: 0
+  magazineSize: 0
+  bulletDeviation: 100
+  shotsPerSecond: 7
+  projectilesPerShot: 1
+  initialWeaponMode: 0
 --- !u!54 &4177371478901941762
 Rigidbody:
   m_ObjectHideFlags: 0
