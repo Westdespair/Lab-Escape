@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
     public bool canDie;
     public GameObject spawnObject;
     public GameObject destroyGameObject;
+    public GameObject gameOverMenuVariant;
 
 
     // Start is called before the first frame update
@@ -47,6 +48,13 @@ public class Health : MonoBehaviour
         {
             gameObject.GetComponent<SmarterAI>().die();
         }
+        else if (CompareTag("Player")) {
+            //gameOverMenuVariant.GetComponent<GameOverMenuController>().enabled = true;
+            gameOverMenuVariant.SetActive(true);
+
+            //GameObject.Destroy(gameObject);
+        }
+
         else
         {
             GameObject.Destroy(gameObject);
