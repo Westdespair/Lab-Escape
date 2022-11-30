@@ -13570,7 +13570,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8160830865522896927}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.451, y: -0.27, z: 12.594346}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
@@ -13684,7 +13684,7 @@ MonoBehaviour:
   health: 10
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
-  timeBetweenAttacks: 0
+  timeBetweenAttacks: 0.3
   projectile: {fileID: 0}
   weaponSlot: {fileID: 4577380117632921386}
   sightRange: 17.47
@@ -14989,6 +14989,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 9043353114824807879}
     m_Modifications:
     - target: {fileID: 4757612418570010021, guid: fc2183493fc31c0468f03232884afcd9, type: 3}
+      propertyPath: magazineSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757612418570010021, guid: fc2183493fc31c0468f03232884afcd9, type: 3}
+      propertyPath: bulletDeviation
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757612418570010021, guid: fc2183493fc31c0468f03232884afcd9, type: 3}
       propertyPath: initialWeaponMode
       value: 1
       objectReference: {fileID: 0}
@@ -15010,11 +15018,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4757612418570010026, guid: fc2183493fc31c0468f03232884afcd9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.2
+      value: 0.9998
       objectReference: {fileID: 0}
     - target: {fileID: 4757612418570010026, guid: fc2183493fc31c0468f03232884afcd9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.37
+      value: 0.061
       objectReference: {fileID: 0}
     - target: {fileID: 4757612418570010026, guid: fc2183493fc31c0468f03232884afcd9, type: 3}
       propertyPath: m_LocalPosition.z
