@@ -7,32 +7,36 @@ public class GameOverMenuController : MonoBehaviour
 {
     //public static bool gameIsOver = false;
 
-    public static bool playerDead = false;
+    //public bool playerDead;
 
     public GameObject gameOverMenuUI;
 
+    //public GameObject pauseMenuUI;
+
+
 
     // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        if (playerDead)
-        {
-                Cursor.lockState = CursorLockMode.Locked;
-                Pause();
-        }
+        //if (playerDead)
+        //{
+                Cursor.lockState = CursorLockMode.None;
+                Time.timeScale = 0f;
+                gameOverMenuUI.SetActive(true);
+                //pauseMenuUI.SetActive(false);
+        //}
         
     }
 
-    void Pause()
-    {
-        gameOverMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        //GameIsPaused = true;
-    }
+    //void PlayerDead()
+    //{
+   //     playerDead = true;
+   // }
 
     public void LoadMenu()
     {
         gameOverMenuUI.SetActive(false);
+        //pauseMenuUI.SetActive(true);
         Time.timeScale = 1f;
         //GameIsPaused = false;
 
