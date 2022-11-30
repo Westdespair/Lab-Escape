@@ -187,4 +187,9 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         permissionToFire = true;
     }
+
+    public int getRemainingAmmo()
+    {
+        return ammoCount;
+    }
 }

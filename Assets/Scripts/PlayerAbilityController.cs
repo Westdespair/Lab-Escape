@@ -20,6 +20,8 @@ public class PlayerAbilityController : MonoBehaviour
     public bool canAttack = true;
     public float attackCooldown = 1.0f;
     public bool isAttacking = false;
+    public Transform gunHand;
+    public float throwForce = 25;
 
 
     private void Awake()
@@ -73,7 +75,18 @@ public class PlayerAbilityController : MonoBehaviour
     {
         // Instantiate<GameObject>(projectile,transform.position,transform.rotation);
         Debug.Log("Primary attack input has been pressed");
-        weaponSlot.GetComponent<Weapon>().FireWeapon();
+        if(weaponSlot != null) {
+            Weapon weapon = weaponSlot.GetComponent<Weapon>();
+            if (weapon.getRemainingAmmo() > 0) {
+                weapon.FireWeapon();
+            } else {
+                Throw();
+                weaponSlot = null;
+            }
+        } else {
+            ClawAttack();
+            weaponSlot = null;
+        }
     }
 
     private void OnSecondaryAttack(InputAction.CallbackContext context)
@@ -115,7 +128,7 @@ public class PlayerAbilityController : MonoBehaviour
             Weapon weaponScript = weaponSlot.GetComponent<Weapon>();
             Collider weaponCollider = weaponSlot.GetComponent<Collider>();
 
-            pickupObject.transform.SetParent(gameObject.transform);
+            pickupObject.transform.SetParent(gunHand.transform/**gameObject.transform*/);
             weaponSlot.transform.localPosition = weaponSlot.GetComponent<Weapon>().basePosition;
             weaponSlot.transform.localEulerAngles = new Vector3(-90,180,0);
             weaponSlot.GetComponent<Weapon>().resetBasePosition();
@@ -126,9 +139,13 @@ public class PlayerAbilityController : MonoBehaviour
     
     private void OnThrowInput(InputAction.CallbackContext context)
     {
+        Throw();
+    }
+
+    private void Throw()
+    {
         Debug.Log("Throwing!");
         weaponSlot.GetComponent<Weapon>().SetMode(Weapon.WeaponMode.Thrown);
-        float throwForce = 15;
         weaponSlot.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * throwForce, ForceMode.VelocityChange);
         weaponSlot = null;
         AudioManager.instance.ActionSFX(0);
