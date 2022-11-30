@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -259,6 +259,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   canDie: 1
+  spawnObject: {fileID: 0}
+  destroyGameObject: {fileID: 0}
 --- !u!114 &566225503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &883162412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -473,7 +475,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883162411}
   m_LocalRotation: {x: 8.231805e-11, y: -0, z: 2.4695415e-10, w: 1}
-  m_LocalPosition: {x: 7.309001, y: 0.9840002, z: 14.619001}
+  m_LocalPosition: {x: 7.309001, y: 17.84, z: 14.619001}
   m_LocalScale: {x: 0.10000001, y: 0.1, z: 0.10000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -486,7 +488,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61236
+  m_Name: pb_Mesh-137602
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -709,6 +711,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   canDie: 1
+  spawnObject: {fileID: 0}
+  destroyGameObject: {fileID: 0}
 --- !u!114 &1082411862 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5443157225528574115, guid: 3827bb2e48073cf4db019663758d1750, type: 3}
@@ -831,6 +835,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bbf7bc6e851314aab206fb132d0e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnObject: {fileID: 0}
+  destroyGameObject: {fileID: 0}
 --- !u!1 &1654258648
 GameObject:
   m_ObjectHideFlags: 0
@@ -6480,7 +6486,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 256
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -6510,7 +6516,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh56606
+  m_Name: pb_Mesh121434
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6791,7 +6797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5443157225528574121, guid: 3827bb2e48073cf4db019663758d1750, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.680489
+      value: 11.68
       objectReference: {fileID: 0}
     - target: {fileID: 5443157225528574121, guid: 3827bb2e48073cf4db019663758d1750, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6799,7 +6805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5443157225528574121, guid: 3827bb2e48073cf4db019663758d1750, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.62
+      value: 9.95
       objectReference: {fileID: 0}
     - target: {fileID: 5443157225528574121, guid: 3827bb2e48073cf4db019663758d1750, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6965,6 +6971,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 3322400071079489638, guid: 865b4fe3075774457974319254d6e9f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 865b4fe3075774457974319254d6e9f7, type: 3}
 --- !u!1001 &4484812521978855187
@@ -6977,6 +6987,10 @@ PrefabInstance:
     - target: {fileID: 4484812523346047395, guid: ae01afbfe05418e4fac7247c2b06021d, type: 3}
       propertyPath: m_Name
       value: Pointer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484812523346047395, guid: ae01afbfe05418e4fac7247c2b06021d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4484812523346047399, guid: ae01afbfe05418e4fac7247c2b06021d, type: 3}
       propertyPath: m_Pivot.x
