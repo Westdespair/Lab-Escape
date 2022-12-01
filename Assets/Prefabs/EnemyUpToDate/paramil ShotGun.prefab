@@ -986,7 +986,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8878943903397392818, guid: ed9d637af1d0e0b4685479cd56bc279a, type: 3}
+  - {fileID: 2100000, guid: c8e566597c878554dab55ff62a3cf9f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4394,7 +4394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b06dc717a45074fa564d4a178ed391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToLive: 7.5
+  TimeToLive: 0.5
 --- !u!114 &2491772137642554762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4424,6 +4424,7 @@ MonoBehaviour:
   canDie: 0
   spawnObject: {fileID: 0}
   destroyGameObject: {fileID: 0}
+  gameOverMenuVariant: {fileID: 0}
 --- !u!1 &3380907601583863215
 GameObject:
   m_ObjectHideFlags: 0
@@ -5159,7 +5160,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8878943903397392818, guid: ed9d637af1d0e0b4685479cd56bc279a, type: 3}
+  - {fileID: 2100000, guid: d40b3fa78f45b0d4fa3df2971c9fbb04, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6878,7 +6879,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8878943903397392818, guid: ed9d637af1d0e0b4685479cd56bc279a, type: 3}
+  - {fileID: 2100000, guid: c8e566597c878554dab55ff62a3cf9f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9340,7 +9341,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8878943903397392818, guid: ed9d637af1d0e0b4685479cd56bc279a, type: 3}
+  - {fileID: 2100000, guid: c8e566597c878554dab55ff62a3cf9f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11285,7 +11286,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8878943903397392818, guid: ed9d637af1d0e0b4685479cd56bc279a, type: 3}
+  - {fileID: 2100000, guid: c8e566597c878554dab55ff62a3cf9f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15050,11 +15051,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9213877405532131001, guid: 6f23e03a6ea57b7418748a4a68f917a8, type: 3}
       propertyPath: shotsPerSecond
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9213877405532131001, guid: 6f23e03a6ea57b7418748a4a68f917a8, type: 3}
       propertyPath: initialWeaponMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213877405532131001, guid: 6f23e03a6ea57b7418748a4a68f917a8, type: 3}
+      propertyPath: projectilesPerShot
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f23e03a6ea57b7418748a4a68f917a8, type: 3}

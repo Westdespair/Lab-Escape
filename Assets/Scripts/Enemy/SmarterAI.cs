@@ -87,6 +87,9 @@ public class SmarterAI : MonoBehaviour
 
     public void die()
     {
+        if (!animator.GetBool("isDead")) {
+
+        
         AudioManager.instance.ActionSFX(4);
         AudioManager.instance.ActionSFX(5);
         animator.SetBool("isDead", true);
@@ -97,6 +100,7 @@ public class SmarterAI : MonoBehaviour
         gameObject.GetComponent<LifeTIme>().enabled = true;
         gameObject.GetComponent<SmarterAI>().enabled = false;
         gameObject.GetComponent<Collider>().enabled = false;
+        }
     }
 
     private void ChasePlayer()

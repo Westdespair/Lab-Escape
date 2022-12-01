@@ -13715,7 +13715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b06dc717a45074fa564d4a178ed391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToLive: 7.5
+  TimeToLive: 0.5
 --- !u!114 &9043353116099218776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13745,6 +13745,7 @@ MonoBehaviour:
   canDie: 0
   spawnObject: {fileID: 0}
   destroyGameObject: {fileID: 0}
+  gameOverMenuVariant: {fileID: 0}
 --- !u!1 &8168093316227253894
 GameObject:
   m_ObjectHideFlags: 0
