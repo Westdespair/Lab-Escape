@@ -2459,7 +2459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &891757764
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5101,12 +5101,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The last thing you remember before waking up in a dimly lit lab room,
-    inside a broken glass vat is that you were shot during a firefight and bleeding.
-    the large claw on your right hand is any indication, you have been a human test
-    subject of unethical biological experiments.
-    Now you must fight guards
-    and other escaped monsters to escape the laboratory.'
+  m_text: The last thing you remember before waking up in a dimly lit lab room, inside
+    a broken glass vat is that you were shot during a firefight and bleeding. the
+    large claw on your right hand is any indication, you have been a human test subject
+    of unethical biological experiments. Now you must fight guards and other escaped
+    monsters to escape the laboratory.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
